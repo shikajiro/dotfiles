@@ -2,10 +2,23 @@ if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
 
+# If not running interactively, don't do anything
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+export EDITOR=nano
+
+export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:/usr/local/sbin"
+
 # Path to the bash it configuration
 export BASH_IT="/Users/shikajiro/.bash_it"
 
-# Lock and Load a custom theme file
+# Lock and Load a custom theme file.
+# Leave empty to disable theming.
+
 # location /.bash_it/themes/
 export BASH_IT_THEME='bobby'
 
@@ -53,76 +66,39 @@ export SCM_CHECK=true
 # Uncomment this to make Bash-it create alias reload.
 # export BASH_IT_RELOAD_LEGACY=1
 
-# Load Bash It
-source "$BASH_IT"/bash_it.sh
-
-export PATH=$PATH:/usr/local/sbin
-
-# pipenv
-eval "$(pipenv --completion)"
-
-# jenv
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-export PATH=$PATH:$JAVA_HOME/bin
-
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
 export BASH_IT_THEME='bobby-python-docker'
 
+# Load Bash It
+source "$BASH_IT"/bash_it.sh
+
+# java
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+export PATH=$PATH:$JAVA_HOME/bin
+eval "$(jenv init -)"
+export PATH="$HOME/.jenv/bin:$PATH"
+
+# ruby
 eval "$(rbenv init -)"
 
-export PATH=~/.npm-global/bin:$PATH
-
-#autoshell(){
-#  [[ -n $AUTOLS_DIR ]] && [[ $AUTOLS_DIR != $PWD ]] && [ -e ./.start.sh ] &&  ./.start.sh
-#  AUTOLS_DIR="${PWD}"
-#}
-#PROMPT_COMMAND="autoshell"
-
-export GOOGLE_APPLICATION_CREDENTIALS=~/strf-gce-credentials.json
-
+# python
+eval "$(pipenv --completion)"
 export PATH="$HOME/.poetry/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+# node
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.npm-global/bin:$PATH
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/shikajiro/google-cloud-sdk/path.bash.inc' ]; then . '/Users/shikajiro/google-cloud-sdk/path.bash.inc'; fi
+export GCLOUD=$HOME/google-cloud-sdk
+if [[ -f "GCLOUD/path.bash.inc" ]]; then . "$GCLOUD/path.bash.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/shikajiro/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/shikajiro/google-cloud-sdk/completion.bash.inc'; fi
+if [[ -f "GCLOUD/completion.bash.inc" ]]; then . "$GCLOUD/completion.bash.inc"; fi
 
-
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
-
-# fbr - checkout git branch
-fbr() {
-  local branches branch
-  branches=$(git branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
-}
-
-# fbr - checkout git branch (including remote branches)
-fbr() {
-  local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
-
-# fd - cd to selected directory
-fd() {
-  local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
-
-alias k='kubectl' 
+# Android
+export PATH=$PATH:/Users/shikajiro/Library/Android/sdk/platform-tools
