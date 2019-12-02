@@ -11,3 +11,5 @@ do
     ln -snfv "$DOTPATH/$f" "$HOME"/"$f"
 
 done
+
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
