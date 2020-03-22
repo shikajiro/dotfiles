@@ -1,3 +1,4 @@
+
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
@@ -101,4 +102,11 @@ if [[ -f "GCLOUD/path.bash.inc" ]]; then . "$GCLOUD/path.bash.inc"; fi
 if [[ -f "GCLOUD/completion.bash.inc" ]]; then . "$GCLOUD/completion.bash.inc"; fi
 
 # Android
-export PATH=$PATH:/Users/shikajiro/Library/Android/sdk/platform-tools
+export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
+
+# Flutter
+export PATH="$PATH:$HOME/Develop/flutter/bin"
+
+#
+export PATH=$HOME/bin:$PATH
+

@@ -1,4 +1,3 @@
-
 #autoshell(){
 #  [[ -n $AUTOLS_DIR ]] && [[ $AUTOLS_DIR != $PWD ]] && [ -e ./.start.sh ] &&  ./.start.sh
 #  AUTOLS_DIR="${PWD}"
@@ -32,19 +31,28 @@ fd() {
   cd "$dir"
 }
 
+# Take a screenshot
+# Usage: screenshot
+ss() {
+  size=600
+  datestr=$(date -j "+%s")
+  name=screen-$datestr-$size.png
+  tmpname=tmp-$datestr.png
+  adb exec-out screencap -p > $tmpname
+  convert $tmpname -resize ${size}x${size} $name
+  rm $tmpname
+  echo $name
+}
 
 function cdls() {
     \cd $1;
     ls;
 }
+
 alias cd=cdls
 
 alias k='kubectl'
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-
-# Take a screenshot
-# Usage: screenshot
-alias screenshot="adb exec-out screencap -p > screen-$(date -j "+%s").png"
 
 # Fire an intent
 # Usage: startintent https://twitter.com/nisrulz
