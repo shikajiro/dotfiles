@@ -1,23 +1,21 @@
 export EDITOR=nano
+export SHELL=/bin/zsh
 
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:/usr/local/sbin"
 
 # java
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-export PATH=$PATH:$JAVA_HOME/bin
 eval "$(jenv init -)"
-export PATH="$HOME/.jenv/bin:$PATH"
 
 # ruby
 eval "$(rbenv init -)"
 
 # python
-#eval "$(pipenv --completion)"
-#export PATH="$HOME/.poetry/bin:$PATH"
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init -)"
+eval "$(pipenv --completion)"
+export PATH="$HOME/.poetry/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # node
 export PATH=$HOME/.nodebrew/current/bin:$PATH

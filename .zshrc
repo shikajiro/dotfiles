@@ -134,3 +134,7 @@ source $ZSH/oh-my-zsh.sh
 autoload -U compinit
 compinit -u
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+prompt_context(){}
