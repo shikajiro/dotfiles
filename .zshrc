@@ -138,3 +138,15 @@ export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 
 prompt_context(){}
+
+ss() {
+  size=600
+  datestr=$(date -j "+%s")
+  name=screen-$datestr-$size.png
+  tmpname=tmp-$datestr.png
+  adb exec-out screencap -p > $tmpname
+  convert $tmpname -resize ${size}x${size} $name
+  rm $tmpname
+  echo $name
+}
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
