@@ -23,10 +23,10 @@ export PATH=$HOME/.npm-global/bin:$PATH
 
 # The next line updates PATH for the Google Cloud SDK.
 export GCLOUD=$HOME/google-cloud-sdk
-if [[ -f "GCLOUD/path.bash.inc" ]]; then . "$GCLOUD/path.bash.inc"; fi
+if [[ -f "GCLOUD/path.zsh.inc" ]]; then . "$GCLOUD/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [[ -f "GCLOUD/completion.bash.inc" ]]; then . "$GCLOUD/completion.bash.inc"; fi
+if [[ -f "GCLOUD/completion.zsh.inc" ]]; then . "$GCLOUD/completion.zsh.inc"; fi
 
 # Android
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
