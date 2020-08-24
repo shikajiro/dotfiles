@@ -36,3 +36,7 @@ export PATH="$PATH:$HOME/Develop/flutter/bin"
 
 #
 export PATH=$HOME/bin:$PATH
+
+
+
+export PATH="$HOME/.cargo/bin:$PATH"

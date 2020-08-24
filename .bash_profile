@@ -110,3 +110,13 @@ export PATH="$PATH:$HOME/Develop/flutter/bin"
 #
 export PATH=$HOME/bin:$PATH
 
+
+#power-shell
+function _update_ps1() {
+    export PS1=""
+}
+export PROMPT_COMMAND="_update_ps1; "
+#power-shell
+
+
+export PATH="$HOME/.cargo/bin:$PATH"

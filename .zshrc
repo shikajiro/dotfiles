@@ -2,14 +2,14 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/shikajiro/.oh-my-zsh"
+#export ZSH="/Users/shikajiro/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -69,41 +69,12 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  adb
-  aws
-  brew
-  docker-compose
-  docker-machine
-  docker
-  flutter
-  gcloud
-  github
-  gitignore
-  golang
-  gradle
-  httpie
-  iterm2
-  jenv
-  kubectl
-  minikube
-  mosh
-  node
-  npm
-  osx
-  pip
-  pipenv
-  pyenv
-  python
-  tmux
-  vagrant
-  virtualenv
-  vscode
-  xcode
-  )
+#plugins=(
+#  git
+#  adb aws brew docker-compose docker-machine docker flutter gcloud github gitignore golang gradle httpie iterm2 jenv kubectl minikube mosh node npm osx pip pipenv pyenv python tmux vagrant 
+#  virtualenv vscode xcode )
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -131,14 +102,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-autoload -U compinit
-compinit -u
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
-prompt_context(){}
-
 ss() {
   size=600
   datestr=$(date -j "+%s")
@@ -150,3 +113,19 @@ ss() {
   echo $name
 }
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
+eval "$(direnv hook zsh)"
+eval "$(starship init zsh)"
+
+# alias
+alias ls="exa"
+alias cat="bat"
+
+# complete
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+autoload -Uz colors
+colors
+
+FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+autoload -Uz compinit
+compinit
