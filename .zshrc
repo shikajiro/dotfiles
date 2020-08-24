@@ -69,6 +69,7 @@
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
 #plugins=(
 #  git
 #  adb aws brew docker-compose docker-machine docker flutter gcloud github gitignore golang gradle httpie iterm2 jenv kubectl minikube mosh node npm osx pip pipenv pyenv python tmux vagrant 
@@ -112,7 +113,18 @@ ss() {
   rm $tmpname
   echo $name
 }
+
+ffmpeggif() {
+  ffmpeg -i $1 -vf scale=320:-1 -r 10 $1.gif
+  echo "create $(pwd)/$1.gif"
+}
+
+activity() {
+  adb shell dumpsys activity | grep -B 1 "Run #[0-9]*:"
+}
+
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
 
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
@@ -129,3 +141,10 @@ colors
 FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 autoload -Uz compinit
 compinit
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+setopt +o nomatch 
+

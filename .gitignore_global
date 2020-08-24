@@ -5,3 +5,6 @@
 .kube
 .kf_deployments
 .worktree
+
+Dev_*
+org.svg
