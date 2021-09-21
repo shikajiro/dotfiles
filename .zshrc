@@ -103,6 +103,57 @@
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export EDITOR=nano
+export SHELL=/bin/zsh
+
+export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:/usr/local/sbin"
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
+eval "$(direnv hook zsh)"
+eval "$(starship init zsh)"
+
+# java
+eval "$(jenv init -)"
+
+# ruby
+eval "$(rbenv init -)"
+
+# python
+export PATH="$HOME/.poetry/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# node
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.npm-global/bin:$PATH
+
+# Android
+export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
+
+# Flutter
+export PATH="$PATH:$HOME/Develop/github.com/flutter/flutter/bin"
+
+# gcloud
+if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/shikajiro/Develop/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# alias
+alias ls="exa"
+alias cat="bat -p"
+alias sed="gsed"
+alias split="gsplit"
+
+
+# functions
+adb_wifi(){
+  ip=$(adb shell "ip addr show wlan0 | grep 192.168" | awk -F' ' '{print $2}' | awk -F'/' '{print $1}')
+  echo $ip
+  adb tcpip 5555
+  adb connect $ip
+}
 ss() {
   size=600
   datestr=$(date -j "+%s")
@@ -123,28 +174,7 @@ activity() {
   adb shell dumpsys activity | grep -B 1 "Run #[0-9]*:"
 }
 
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-
-
-eval "$(direnv hook zsh)"
-eval "$(starship init zsh)"
-
-# alias
-alias ls="exa"
-alias cat="bat"
-
-# complete
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-autoload -Uz colors
-colors
-
-FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-autoload -Uz compinit
-compinit
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
-
-setopt +o nomatch 
+androiddebugkey-report(){
+  keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android
+}
 
