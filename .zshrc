@@ -149,13 +149,6 @@ if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/path.zsh.inc' ]; then . '/Use
 if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc'; fi
 
 
-# alias
-alias ls="exa"
-alias cat="bat -p"
-alias sed="gsed"
-alias split="gsplit"
-
-
 # functions
 adb_wifi(){
   ip=$(adb shell "ip addr show wlan0 | grep 192.168" | awk -F' ' '{print $2}' | awk -F'/' '{print $1}')
