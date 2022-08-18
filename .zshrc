@@ -109,12 +109,20 @@ export SHELL=/bin/zsh
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:/usr/local/sbin"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 
+#node
+export PATH="$HOME/.nodenv/bin:$PATH"
+eval "$(nodenv init -)"
+
 # java
 eval "$(jenv init -)"
+
+# go
+eval "$(goenv init -)"
 
 # ruby
 eval "$(rbenv init -)"
@@ -136,6 +144,7 @@ export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 export PATH="$PATH:$HOME/Develop/github.com/flutter/flutter/bin"
 
 # gcloud
+export CLOUDSDK_PYTHON="$HOME/.pyenv/versions/3.8.13/bin/python"
 if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/shikajiro/Develop/google-cloud-sdk/path.zsh.inc'; fi
 if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc'; fi
 
@@ -176,5 +185,23 @@ activity() {
 
 androiddebugkey-report(){
   keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android
+}
+
+adb_device_info() {
+  adb shell getprop | grep -e 'model' -e 'version.sdk' -e 'manufacturer' -e 'hardware' -e 'platform' -e 'revision' -e 'serialno' -e 'product.name' -e 'brand'
+}
+
+layout_poetry() {
+  if [[ ! -f pyproject.toml ]]; then
+    log_error 'No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.'
+    exit 2
+  fi
+
+  # create venv if it doesn't exist
+  poetry run true
+
+  export VIRTUAL_ENV=$(poetry env info --path)
+  export POETRY_ACTIVE=1
+  PATH_add "$VIRTUAL_ENV/bin"
 }
 
