@@ -32,12 +32,15 @@ eval "$(pyenv init -)"
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 
 # Flutter
-export PATH="$PATH:$HOME/Develop/github.com/flutter/flutter/bin"
+#export PATH="$PATH:$HOME/Develop/github.com/flutter/flutter/bin"
 
 # gcloud
 export CLOUDSDK_PYTHON="$HOME/.pyenv/versions/3.8.13/bin/python"
 if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/shikajiro/Develop/google-cloud-sdk/path.zsh.inc'; fi
 if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc'; fi
+
+# asdf
+echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
 
 
 # functions
@@ -89,3 +92,7 @@ layout_poetry() {
   PATH_add "$VIRTUAL_ENV/bin"
 }
 
+
+. /usr/local/opt/asdf/libexec/asdf.sh
+
+. /usr/local/opt/asdf/libexec/asdf.sh
