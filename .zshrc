@@ -10,8 +10,8 @@ eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 
 #node
-export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init -)"
+#export PATH="$HOME/.nodenv/bin:$PATH"
+#eval "$(nodenv init -)"
 
 # java
 eval "$(jenv init -)"
@@ -40,8 +40,10 @@ if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/path.zsh.inc' ]; then . '/Use
 if [ -f '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/shikajiro/Develop/google-cloud-sdk/completion.zsh.inc'; fi
 
 # asdf
-echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+. $(brew --prefix asdf)/libexec/asdf.sh
 
+# aliases
+alias docker-kill-all="docker ps --format "{{.Names}}" | xargs docker kill"
 
 # functions
 adb_wifi(){
@@ -92,7 +94,15 @@ layout_poetry() {
   PATH_add "$VIRTUAL_ENV/bin"
 }
 
+del_merged_branch() {
+  git branch --merged | grep -v '*' | xargs git branch -d
+}
 
-. /usr/local/opt/asdf/libexec/asdf.sh
+export STORE_PASSWORD_DEBUG='android'
+export KEY_PASSWORD_DEBUG='android'
+export KEY_ALIAS_DEBUG='androiddebugkey'
 
-. /usr/local/opt/asdf/libexec/asdf.sh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH=$PATH:$HOME/.maestro/bin

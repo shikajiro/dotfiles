@@ -7,12 +7,4 @@
 .worktree
 .java-version
 .direnv
-
-Dev_*
-org.svg
-Project.xml
 *.iml
-.idea/*
-
-worktree
-
